@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { Dropdown } from './index';
 
 describe('Dropdown', () => {
@@ -8,6 +8,10 @@ describe('Dropdown', () => {
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' },
   ];
+
+  afterEach(() => {
+    cleanup();
+  });
 
   it('renders with placeholder when no value is selected', () => {
     const onChange = vi.fn();
@@ -183,7 +187,7 @@ describe('Dropdown', () => {
     expect(dropdown?.className).toContain('answered');
   });
 
-  it('closes dropdown when clicking outside', () => {
+  it('closes dropdown when clicking outside', async () => {
     const onChange = vi.fn();
     render(
       <div>
@@ -204,6 +208,8 @@ describe('Dropdown', () => {
     const outside = screen.getByTestId('outside');
     fireEvent.mouseDown(outside);
 
-    expect(screen.queryByRole('listbox')).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByRole('listbox')).toBeNull();
+    });
   });
 });
