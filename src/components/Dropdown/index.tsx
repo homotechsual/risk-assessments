@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './dropdown.css';
 
 export interface DropdownOption {
@@ -161,6 +160,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           aria-labelledby={id}
         >
           {options.map((option, index) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
               key={option.value}
               className={`custom-dropdown-option ${
@@ -170,13 +170,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
               aria-selected={option.value === value}
               onClick={() => handleSelect(option.value)}
               onMouseEnter={() => setFocusedIndex(index)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleSelect(option.value);
-                }
-              }}
-              tabIndex={-1}
             >
               {option.label}
             </li>
@@ -185,21 +178,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
     </div>
   );
-};
-
-Dropdown.propTypes = {
-  id: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  placeholder: PropTypes.string,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
 };
 
 export default Dropdown;
