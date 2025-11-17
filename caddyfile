@@ -5,6 +5,7 @@
 	log {
 		format json
 	}
+	auto_https disable_redirects
 }
 
 # site block
