@@ -17,7 +17,7 @@ jobs:
               run: docker build -t risk-assessments:latest .
 
             - name: Run Docker container
-              run: docker run -d -p 3000:80 --name risk-assessments-container risk-assessments:latest
+              run: docker run -d -p 3000:443 --name risk-assessments-container risk-assessments:latest
 
             - name: Test Docker container is running
               run: |
@@ -30,7 +30,7 @@ jobs:
 
             - name: Test that we get a 200 response from the application
               run: |
-                RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+                RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -k https://localhost:3000)
                 if [ "$RESPONSE" -ne 200 ]; then
                   echo "Expected HTTP 200 but got $RESPONSE"
                   exit 1
@@ -40,7 +40,7 @@ jobs:
 
             - name: Test content, look for the "https://blacksmithinfosec.com" string in the footer of the homepage
               run: |
-                CONTENT=$(curl -s http://localhost:3000)
+                CONTENT=$(curl -s -k https://localhost:3000)
                 if [[ "$CONTENT" != *"https://blacksmithinfosec.com"* ]]; then
                   echo "Expected content not found in the homepage"
                   exit 1
