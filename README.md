@@ -18,7 +18,7 @@ coming soon.
 
 ## Getting Started
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 > If you are planning to host the application you should use a reverse proxy or load balancer as the docker image only provides self-signed certificates and the built in node webserver is not suited for production hosting needs.
 
 ### Local
@@ -56,8 +56,8 @@ Open `http://localhost:3000`
 
 Now that you've built the application / image / container locally you're ready to open it by visiting: `https://localhost:3000` in your browser.
 
-> \[!NOTE]
-> The docker containers are configured to serve over HTTPS by default and to direct all traffic to HTTPS. They will generate a self-signed certificate to facilitate this.
+> [!NOTE]
+> The docker containers are configured to serve over HTTPS with a self-signed certificate by default. The containers will also serve HTTP.
 
 ## Questionnaire Data
 
