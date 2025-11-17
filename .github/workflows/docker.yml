@@ -30,7 +30,7 @@ jobs:
 
             - name: Test that we get a 200 response from the application
               run: |
-                RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -k https://localhost:3000)
+                RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" --tlsv1.3 -k https://localhost:3000)
                 if [ "$RESPONSE" -ne 200 ]; then
                   echo "Expected HTTP 200 but got $RESPONSE"
                   exit 1
