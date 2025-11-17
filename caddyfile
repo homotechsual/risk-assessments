@@ -9,7 +9,7 @@
 }
 
 # site block
-localhost {
+http://localhost,https://localhost {
 	log {
 		format json
 	}
